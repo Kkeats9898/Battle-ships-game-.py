@@ -26,12 +26,12 @@ class Battleships_game:
         return guess_row + guess_col 
     
 
-    def play_game():
+    def play_game(self):
         print("Welcome to Battleship!")
 
         while True:
-            self.print_board(self)
-            guess_row, guess_col = self.take_turn
+            self.print_board()
+            guess_row, guess_col = self.take_turn()
             # this makes the users input turn into the marked spot they want 
             self.attempts += 1
 
@@ -39,8 +39,15 @@ class Battleships_game:
                 print(f"Congrats! You sunk my battle ship in {self.attempts} attempts!")
                 break
             else:
-                print_board[guess_row][guess_col] = "X"
-                print(f"LOL, you missed. That makes {self.attempts} attempts. Try again loser.")
+                if 0 <= guess_row < self.size and 0 <= guess_col < self.size:
+                    # this makes sure guessed row and guessed col are greater than zero and within board parameters 
+                    if self.board[guess_row][guess_col] == "X":
+                        print("Oops, you've already guessed that, try again")
+                    else:
+                        self.board[guess_row][guess_col] = "X"
+                        print(f"LOL, you missed. That makes {self.attempts} attempts. Try again loser.")
+                else: 
+                    print("Bro... thats not even in the ocean. Try again")
 
 
 
