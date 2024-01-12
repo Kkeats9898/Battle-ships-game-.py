@@ -30,12 +30,19 @@ class Battleships_game:
         print("Welcome to Battleship!")
 
         while True:
-            self.print_board()
-            guess_row, guess_col = take_turn
+            self.print_board(self)
+            guess_row, guess_col = self.take_turn
             # this makes the users input turn into the marked spot they want 
             self.attempts += 1
 
-            
+            if guess_row == self.ship_row and guess_col == self.ship_col:
+                print(f"Congrats! You sunk my battle ship in {self.attempts} attempts!")
+                break
+            else:
+                print_board[guess_row][guess_col] = "X"
+                print(f"LOL, you missed. That makes {self.attempts} attempts. Try again loser.")
+
+
 
 
         
