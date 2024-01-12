@@ -10,6 +10,7 @@ class Battleships_game:
         self.ship_row = random.randint(0, size - 1)
         self.ship_col = random.randint(0, size - 1)
         # the above code makes the computer pick a random spot on board to place ship 
+        self.attempts = 0
 
     def print_board(self):
         for row in self.board:
@@ -25,12 +26,17 @@ class Battleships_game:
         return guess_row + guess_col 
     
 
-
-
-
     def play_game():
+        print("Welcome to Battleship!")
+
+        while True:
+            self.print_board()
+            guess_row, guess_col = take_turn
+            # this makes the users input turn into the marked spot they want 
+            self.attempts += 1
+
+            
 
 
-
-class Ships 
         
+
