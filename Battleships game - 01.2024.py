@@ -50,7 +50,12 @@ class Battleships_game:
                     print("Bro... thats not even in the ocean. Try again")
 
 
-
+if __name__ == "__main__":
+    # checks that script is being run as main program 
+    game = Battleships_game()
+    # initialises game 
+    game.play_game
+    # calls 'play' method of Battleship_game instance, initiating game loop. 
 
         
 
