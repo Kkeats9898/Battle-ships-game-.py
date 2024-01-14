@@ -3,7 +3,7 @@
 import random
 
 class Battleships_game:
-    def __init__(self, size=10):
+    def __init__(self, size=5):
         self.size = size
         self.board = [['O' for _ in range(size)] for _ in range(size)] 
         # the above code makes a 2d graph of board, the 'O' is representing empty sea space.
@@ -23,7 +23,7 @@ class Battleships_game:
     def take_turn(self):
         guess_row = int(input("Guess row: "))
         guess_col = int(input("Guess column: "))
-        return guess_row + guess_col 
+        return guess_row, guess_col 
     
 
     def play_game(self):
@@ -50,11 +50,11 @@ class Battleships_game:
                     print("Bro... thats not even in the ocean. Try again")
 
 
-if __name__ == "__main__":
+# if __name__ == "__main__":
     # checks that script is being run as main program 
-    game = Battleships_game()
+game = Battleships_game()
     # initialises game 
-    game.play_game
+game.play_game()
     # calls 'play' method of Battleship_game instance, initiating game loop. 
 
         
