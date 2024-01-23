@@ -1,61 +1,75 @@
-# Battleships Game 
-
 import random
 
 class Battleships_game:
     def __init__(self, size=5):
+        # Initialize the Battleship game with a default board size of 5x5
         self.size = size
-        self.board = [['O' for _ in range(size)] for _ in range(size)] 
-        # the above code makes a 2d graph of board, the 'O' is representing empty sea space.
+        # Create an empty game board filled with 'O'
+        self.board = [['O' for _ in range(size)] for _ in range(size)]
+        # Place the battleship at a random position on the board
         self.ship_row = random.randint(0, size - 1)
         self.ship_col = random.randint(0, size - 1)
-        # the above code makes the computer pick a random spot on board to place ship 
+        # Initialize the number of attempts made by the player
         self.attempts = 0
 
     def print_board(self):
+        # Print the current state of the game board
         for row in self.board:
             print(" ".join(row))
-            # this joins the elements of current row into single string with a space in between for better visual
         print()
-        # this adds space between rows 
-
 
     def take_turn(self):
-        guess_row = int(input("Guess row: "))
-        guess_col = int(input("Guess column: "))
-        return guess_row, guess_col 
-    
+        # Get the player's guess for the row
+        guess_row = input("Guess row (or type 'exit' to end the game): ")
+
+        if guess_row.lower() == 'exit':
+            # If the player wants to exit, return 'exit' for both row and column
+            return 'exit', 'exit'
+
+        try:
+            # Convert the input to an integer for the row
+            guess_row = int(guess_row)
+            # Get the player's guess for the column
+            guess_col = int(input("Guess column: "))
+            # Return the player's guess as a tuple
+            return guess_row, guess_col
+        except ValueError:
+            # Handle the case where the input is not a valid integer
+            print("Invalid input. Please enter a valid integer for the row.")
+            # Recursively call take_turn to get a valid input
+            return self.take_turn()
 
     def play_game(self):
+        # Start the Battleship game
         print("Welcome to Battleship!")
 
         while True:
+            # Display the current state of the game board
             self.print_board()
+            # Get the player's turn
             guess_row, guess_col = self.take_turn()
-            # this makes the users input turn into the marked spot they want 
+
+            if guess_row == 'exit' or guess_col == 'exit':
+                # If the player wants to exit, end the game
+                print("Game ended. Thanks for playing!")
+                break
+
+            # Increment the number of attempts made by the player
             self.attempts += 1
 
-            if guess_row == self.ship_row and guess_col == self.ship_col:
-                print(f"Congrats! You sunk my battle ship in {self.attempts} attempts!")
-                break
+            if 0 <= guess_row < self.size and 0 <= guess_col < self.size:
+                if self.board[guess_row][guess_col] == "X":
+                    # If the player has already guessed the same spot, notify and ask for another guess
+                    print("Oops, you've already guessed that. Try again.")
+                else:
+                    # Mark the guessed spot with 'X' on the board
+                    self.board[guess_row][guess_col] = "X"
+                    print(f"LOL, you missed. That makes {self.attempts} attempts. Try again loser.")
             else:
-                if 0 <= guess_row < self.size and 0 <= guess_col < self.size:
-                    # this makes sure guessed row and guessed col are greater than zero and within board parameters 
-                    if self.board[guess_row][guess_col] == "X":
-                        print("Oops, you've already guessed that, try again")
-                    else:
-                        self.board[guess_row][guess_col] = "X"
-                        print(f"LOL, you missed. That makes {self.attempts} attempts. Try again loser.")
-                else: 
-                    print("Bro... thats not even in the ocean. Try again")
+                # If the guessed spot is outside the board, ask for another guess
+                print("Bro... that's not even in the ocean. Try again")
 
-
-# if __name__ == "__main__":
-    # checks that script is being run as main program 
-game = Battleships_game()
-    # initialises game 
-game.play_game()
-    # calls 'play' method of Battleship_game instance, initiating game loop. 
-
-        
-
+if __name__ == "__main__":
+    # Run the Battleship game
+    game = Battleships_game()
+    game.play_game()
